@@ -9,8 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query = "INSERT INTO users (username, password, email) VALUES ( ?, ?, ?);";
 
         $stmt = $pdo->prepare($query);
+        $options = [
+            'cost' => 12
+        ];
+        $hashedPwd = password_hash($password, PASSWORD_BCRYPT, $options);
         $stmt->bindParam(":username", $username);
-        $stmt->bindParam(":password", $password);
+        $stmt->bindParam(":password", $hashedPwd);
         $stmt->bindParam(":email", $email);
         $stmt->execute([$username, $password, $email]);
         $pdo = null;
