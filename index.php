@@ -1,5 +1,6 @@
 <?php
-require_once 'config.php';
+require_once 'includes/config.php';
+require_once 'includes/signup_v.inc.php';
 ?>
 
 <!DOCTYPE html>
@@ -23,13 +24,17 @@ require_once 'config.php';
     </form>
     <br>
     <H3>SIGN UP</H3>
-    <form action="includes/formhandler.inc.php" method="post">
+    <form action="includes/signup.inc.php" method="post">
         <input type="text" name="username" placeholder="Username"> <br>
         <input type="password" name="pwd" placeholder="Password"> <br>
         <input type="text" name="email" placeholder="E-Mail"> <br>
         <br>
         <button>SIGN UP</button>
     </form>
+    <br> <br>
+    <?php
+    checkSignupErrors();
+    ?>
 </body>
 
 </html>

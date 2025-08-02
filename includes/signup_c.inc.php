@@ -29,3 +29,16 @@ function usernameTaken(object $pdo, string $username)
         return false;
     }
 }
+function isEmailRegistered(object $pdo, string $email)
+{
+    if (getEmail($pdo, $email)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function createUser(object $pdo, string $pwd, string $username, string $email)
+{
+    setUser($pdo, $pwd, $username, $email);
+}
