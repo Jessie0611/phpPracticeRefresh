@@ -3,7 +3,7 @@
 ini_set('session.use_only_cookies', 1);
 //Prevents session fixation attacks, where an attacker tricks a user into using a specific session ID via a URL.
 //Avoids session leakage through browser history, logs, or referer headers.
-
+//-------------------------//
 //Ensures that PHP rejects any uninitialized or invalid session ID when starting a session with session_start()
 ini_set('session.use_strict_mode', 1);
 //Protects against session fixation by not allowing attackers to supply their own session IDs to hijack a session.
@@ -14,6 +14,17 @@ session_set_cookie_params([
     'path' => '/',
     'secure' => 'true',
     'httponly' => 'true'
-
 ]);
 session_start();
+
+if (!isset($_SESSION['last_regeneration'])) {
+    session_regenerate_id(true);
+    //good idea to do automatically after a certain amt of time, reduces chances of hackers stealing cookie
+    $_SESSION['last_regeneration'] = time();
+} else {
+    $interval = 60 * 30;
+    if (time() - $_SESSION['last_regeneration'] >= $interval) {
+        session_regenerate_id(true);
+        $_SESSION['last_regeneration'] = time();
+    }
+}
