@@ -1,8 +1,5 @@
 <?php
 require_once 'config.php';
-session_start();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -16,13 +13,22 @@ session_start();
 </head>
 
 <body>
-    <H3>Sign Up!</H3>
-    <form action="includes/formhandler.inc.php" method="post">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="pwd" placeholder="Password">
-        <input type="text" name="email" placeholder="E-Mail">
+
+    <h3>LOGIN</h3> <br>
+    <form accept="includes/login.inc.php" method="POST">
+        <input type="text" name="username" placeholder="Username"> <br>
+        <input type="password" name="password" placeholder="Password"> <br>
         <br>
-        <button>Sign Up!</button>
+        <button>LOGIN</button>
+    </form>
+    <br>
+    <H3>SIGN UP</H3>
+    <form action="includes/formhandler.inc.php" method="post">
+        <input type="text" name="username" placeholder="Username"> <br>
+        <input type="password" name="pwd" placeholder="Password"> <br>
+        <input type="text" name="email" placeholder="E-Mail"> <br>
+        <br>
+        <button>SIGN UP</button>
     </form>
 </body>
 

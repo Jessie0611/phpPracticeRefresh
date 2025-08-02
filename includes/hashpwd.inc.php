@@ -11,14 +11,14 @@ echo "<br>" . $hash;
 
 //password hashing
 
-$password = "example";
+$pwd = "example";
 $options = [
     'cost' => 12
 ];
-$hashedPwd = password_hash($password, PASSWORD_BCRYPT, $options);
-$passwordLogin = "example";
-password_verify($passwordLogin, $hashedPwd);
+$hashedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
+$pwdLogin = "example";
+password_verify($pwdLogin, $hashedPwd);
 
-if (password_verify($passwordLogin, $hashedPwd)) {
+if (password_verify($pwdLogin, $hashedPwd)) {
     echo "The passwords are the same.";
 }
