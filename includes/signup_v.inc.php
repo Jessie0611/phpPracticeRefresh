@@ -10,5 +10,8 @@ function checkSignupErrors()
             echo '<p class ="formError">' . $error . '</p>';
         }
         unset($_SESSION['errors_signup']);
+    } else if (isset($_GET["signup"]) && $_GET["signup"] === "success") {
+        echo '<br>';
+        echo '<p class="formSuccess"> Signup Successful! Please login. </p>';
     }
 }
