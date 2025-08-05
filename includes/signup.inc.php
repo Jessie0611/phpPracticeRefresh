@@ -5,7 +5,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
 
     try {
-        require_once "dbh.inc.php";
+        require_once 'dbh.inc.php';
+        require_once 'signup_m.inc.php';
+        require_once 'signup_c.inc.php';
         $query = "INSERT INTO users (username, pwd, email) VALUES ( ?, ?, ?);";
 
         $stmt = $pdo->prepare($query);
@@ -23,25 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         die();
     } catch (PDOException $e) {
-
         die("Query Failed: " . $e->getMessage());
     }
 } else {
-    header("Loocation: ../index.php");
+    header("Location: ../index.php");
+    die();
 }
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    $username = $_POST["username"];
-    $pwd = $_POST["pwd"];
-    $email = $_POST["email"];
-    try {
-        require_once 'dbh.inc.php';
-        require_once 'singup_m.inc.php';
-        require_once 'signup_c.inc.php';
-        require_once 'signup_v.inc.php';
-
-        //error handlers
+       //error handlers
         $errors = [];
 
         if (isEmpty($username, $pwd, $email)) {
@@ -61,6 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($errors) {
             $_SESSION["errors_signup"] = $errors;
+            $signupData = [
+                "username" => $username,
+                "email" => $email
+            ];
+            $_SESSION["signup_data"] = $signupData;
+
             header("Location: ../index.php");
             die();
         }

@@ -25,16 +25,12 @@ require_once 'includes/signup_v.inc.php';
     <br>
     <H3>SIGN UP</H3>
     <form action="includes/signup.inc.php" method="post">
-        <input type="text" name="username" placeholder="Username"> <br>
-        <input type="password" name="pwd" placeholder="Password"> <br>
-        <input type="text" name="email" placeholder="E-Mail"> <br>
+        <?php signupInputs(); ?>
         <br>
         <button>SIGN UP</button>
     </form>
     <br> <br>
-    <?php
-    checkSignupErrors();
-    ?>
+    <?php checkSignupErrors(); ?>
 </body>
 
 </html>
