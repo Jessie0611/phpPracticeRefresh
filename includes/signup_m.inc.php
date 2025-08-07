@@ -10,12 +10,12 @@ function getUsername(object $pdo, string $username)
     $stmt->bindParam(":username", $username);
     $stmt->execute();
 
-    $result = $stmt->fetch(PDO::FETCH_ASSOC); //fetch first result from associative array
+    $result = $stmt->fetch(PDO::FETCH_ASSOC); //fetch as associative array
     return $result;
 }
 function getEmail(object $pdo, string $email)
 {
-    $query = "SELECT username FROM users WHERE email = :email;";
+    $query = "SELECT email FROM users WHERE email = :email;";
     $stmt = $pdo->prepare($query); //prevent sql injection
     $stmt->bindParam(":email", $email);
     $stmt->execute();
@@ -25,8 +25,9 @@ function getEmail(object $pdo, string $email)
 }
 
 function setUser(object $pdo, string $pwd, string $username, string $email)
+
 {
-    $query = "INSERT INTO users (username, pwd, email) VALUES (:username, :pwd, :email;";
+    $query = "INSERT INTO users (username, pwd, email) VALUES (:username, :pwd, :email)";
     $stmt = $pdo->prepare($query); //prevent sql injection
 
     $options = [
@@ -35,7 +36,7 @@ function setUser(object $pdo, string $pwd, string $username, string $email)
     $hasHedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
 
     $stmt->bindParam(":username", $username);
-    $stmt->bindParam(":pwd", $pwd);
+    $stmt->bindParam(":pwd", $hasHedPwd);
     $stmt->bindParam(":email", $email);
 
     $stmt->execute();

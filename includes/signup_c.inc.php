@@ -3,12 +3,11 @@
 declare(strict_types=1);
 
 function isEmpty(string $username, string $pwd, string $email)
-{ {
-        if (empty($username) || empty($pwd) || empty($email)) {
-            return true;
-        } else {
-            return false;
-        }
+{
+    if (empty($username) || empty($pwd) || empty($email)) {
+        return true;
+    } else {
+        return false;
     }
 }
 

@@ -29,7 +29,7 @@ require_once 'includes/signup_v.inc.php';
         <br>
         <button>SIGN UP</button>
     </form>
-    <br> <br>
+    <br>
     <?php checkSignupErrors(); ?>
 </body>
 

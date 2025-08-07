@@ -8,30 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once 'dbh.inc.php';
         require_once 'signup_m.inc.php';
         require_once 'signup_c.inc.php';
-        $query = "INSERT INTO users (username, pwd, email) VALUES ( ?, ?, ?);";
 
-        $stmt = $pdo->prepare($query);
-        $options = [
-            'cost' => 12
-        ];
-        $hashedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
-        $stmt->bindParam(":username", $username);
-        $stmt->bindParam(":pwd", $hashedPwd);
-        $stmt->bindParam(":email", $email);
-        $stmt->execute([$username, $pwd, $email]);
-        $pdo = null;
-        $stmt = null;
-        header("Loocation: index.php");
-
-        die();
-    } catch (PDOException $e) {
-        die("Query Failed: " . $e->getMessage());
-    }
-} else {
-    header("Location: ../index.php");
-    die();
-}
-       //error handlers
+        //error handlers
         $errors = [];
 
         if (isEmpty($username, $pwd, $email)) {
@@ -51,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($errors) {
             $_SESSION["errors_signup"] = $errors;
+            //the below code will keep the data input by the user if errors exist so they do not have to retype:
             $signupData = [
                 "username" => $username,
                 "email" => $email
@@ -63,8 +42,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         createUser($pdo, $pwd, $username, $email);
         header("Location: ../index.php?signup=success");
+
         $pdo = null;
         $stmt = null;
+
+        $query = "INSERT INTO users (username, pwd, email) VALUES ( ?, ?, ?);";
+
+        $stmt = $pdo->prepare($query);
+        $options = [
+            'cost' => 12
+        ];
+        $hashedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":pwd", $hashedPwd);
+        $stmt->bindParam(":email", $email);
+        $stmt->execute([$username, $pwd, $email]);
+        $pdo = null;
+        $stmt = null;
+        header("Location: ../index.php");
+
+        die();
     } catch (PDOException $e) {
         die("Query Failed: " . $e->getMessage());
     }
