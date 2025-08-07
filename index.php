@@ -15,15 +15,21 @@ require_once 'includes/login_v.inc.php';
 </head>
 
 <body>
-
-    <h3>LOGIN</h3> <br>
-    <form accept="includes/login.inc.php" method="POST">
-        <input type="text" name="username" placeholder="Username"> <br>
-        <input type="password" name="password" placeholder="Password"> <br>
+    <h3>
+        <?php outputUsername(); ?>
+    </h3>
+    <?php
+    if (!isset($_SESSION["user_id"])) { ?>
+        <h3>LOGIN</h3> <br>
+        <form accept="includes/login.inc.php" method="POST">
+            <input type="text" name="username" placeholder="Username"> <br>
+            <input type="password" name="password" placeholder="Password"> <br>
+            <br>
+            <button>LOGIN</button>
+        </form>
         <br>
-        <button>LOGIN</button>
-    </form>
-    <br>
+    <?php   } ?>
+
     <?php checkLoginErrors(); ?>
     <br>
     <H3>SIGN UP</H3>
